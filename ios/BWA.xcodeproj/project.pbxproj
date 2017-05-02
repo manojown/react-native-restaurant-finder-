@@ -69,6 +69,7 @@
 		6C6E9C4E20A54428A4DB724A /* Skia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A8372AEEFA0946F686ED2B88 /* Skia.ttf */; };
 		49C5F4A81209441480217122 /* Times New Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0234D280906640BFBC58B0A6 /* Times New Roman.ttf */; };
 		9E3C8660EA2F48CA8DE94D7A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39D52A01487B4697931754C7 /* Zocial.ttf */; };
+		170DC1BB375E44C8AC749892 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B1B85EAEB1742039B952749 /* SimpleLineIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -322,6 +323,7 @@
 		A8372AEEFA0946F686ED2B88 /* Skia.ttf */ = {isa = PBXFileReference; name = "Skia.ttf"; path = "../node_modules/native-base/Fonts/Skia.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0234D280906640BFBC58B0A6 /* Times New Roman.ttf */ = {isa = PBXFileReference; name = "Times New Roman.ttf"; path = "../node_modules/native-base/Fonts/Times New Roman.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		39D52A01487B4697931754C7 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7B1B85EAEB1742039B952749 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -588,6 +590,7 @@
 				A8372AEEFA0946F686ED2B88 /* Skia.ttf */,
 				0234D280906640BFBC58B0A6 /* Times New Roman.ttf */,
 				39D52A01487B4697931754C7 /* Zocial.ttf */,
+				7B1B85EAEB1742039B952749 /* SimpleLineIcons.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -985,6 +988,7 @@
 				6C6E9C4E20A54428A4DB724A /* Skia.ttf in Resources */,
 				49C5F4A81209441480217122 /* Times New Roman.ttf in Resources */,
 				9E3C8660EA2F48CA8DE94D7A /* Zocial.ttf in Resources */,
+				170DC1BB375E44C8AC749892 /* SimpleLineIcons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

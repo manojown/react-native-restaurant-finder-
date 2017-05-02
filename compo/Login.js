@@ -17,7 +17,7 @@ import {
   Label,
 } from 'native-base';
 import { NativeRouter, Route, Link,Router,browserHistory  } from 'react-router-native';
-
+var ApiService =require( './ApiService');
 
 export default class Login extends Component {
   constructor(props) {
@@ -28,23 +28,27 @@ export default class Login extends Component {
    };
    getOtp(){
        var thisComponent=this;
-console.log("dfdgfgdgf")
-    // if (thisComponent.state.mobile.length == 10){
-      // console.log('hwfduyweh',that);
-    //   ApiService.submit(thisComponent.state.mobile)
-    //   .then(function (res) {
-    //       console.log(res,"Response");
-    //     if(!res){
-    //       alert ('please enter correct Number');
-    //     }
-    //   })
-    //   .catch(function (err) {
-    //     alert('err');
-    //     console.log(err);
-    //   });
-    // } else {
-    //   alert("Please enter correct mobile number");
-    // }
+
+
+          if (thisComponent.state.mobile.length == 10){
+            // console.log('hwfduyweh',that);
+ApiService.submit(thisComponent.state.mobile)
+ .then(function (res) {
+     console.log(res,"Response");
+   if(!res){
+     alert ('please enter correct Number');
+   }else{
+     alert('hello');
+     thisComponent.props.history.push('/OtpVerification', { mobile: thisComponent.state.mobile })
+   }
+ })
+ .catch(function (err) {
+   alert('err');
+   console.log(err);
+ });
+} else {
+ alert("Please enter correct mobile number");
+}
    }
     render()  {
       return (
@@ -78,17 +82,15 @@ console.log("dfdgfgdgf")
                 keyboardType='numeric'
                 ref='mobile'
                 value={this.state.mobile}
+                 onChangeText={(mobile) => this.setState({mobile})}
                 maxLength={10} />
               </View>
               <View style={styles.smallblock1}>
-                <Link
-                  underlayColor= '#87dd18'
-                  to={{
-                    pathname: '/OtpVerification',
-                    state: { mobile: this.state.mobile }
-                    }}>
-                    <Text style={styles.text}>NEXT</Text>
-                  </Link>
+              <TouchableHighlight onPress={this.getOtp.bind(this)} style={{underlayColor: 'black'}}>
+                 <Text style={styles.linkText}>
+                   NEXT
+                 </Text>
+             </TouchableHighlight>
                 </View>
               </View>
             </View>
@@ -103,7 +105,6 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   innercontainer:{
-    flexDirection:'row',
     alignItems:'center',
     height:'70%',
   },
@@ -143,6 +144,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   smallblock:{
+
     margin:15
   },
   smallblock1:{

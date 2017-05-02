@@ -7,7 +7,8 @@ import {
   Navigator,
   TextInput,
   Image,Alert,
-  StatusBar
+  StatusBar,
+  AsyncStorage
 } from 'react-native';
 import {
   Item,
@@ -17,6 +18,7 @@ import {
 } from 'native-base';
 import { NativeRouter, Route, Link,Router,browserHistory  } from 'react-router-native';
 // var ApiService =require( './ApiService');
+var ApiService =require( './ApiService');
 
 
 
@@ -29,6 +31,25 @@ export default class OtpVerification extends Component {
    state={
 
    }
+   setOtp(){
+       var thisComponent=this;
+
+
+
+       ApiService.Auth(this.props.location.state.mobile,thisComponent.state.otp)
+          .then(function (res) {
+              if(res){
+                AsyncStorage.setItem("token", res);
+                thisComponent.props.history.push('/home');
+              }else{
+                alert("Enter correct OTP")
+              }
+          })
+          .catch(function (err) {
+            alert('err mobile');
+            console.log(err);
+          });
+}
 
     render() {
         return (
@@ -54,12 +75,12 @@ export default class OtpVerification extends Component {
                   <TextInput style={styles.input}
                     fontSize={16}
                     placeholder='XXXX'
-                     onChangeText={(mobile) => this.setState({mobile})}
+                     onChangeText={(otp) => this.setState({otp})}
                     placeholderTextColor='#ffffff'
                     underlineColorAndroid='#ffffff'
                     keyboardType='numeric'
-                    ref='mobile'
-                    value={this.state.mobile}
+                    ref='otp'
+                    value={this.state.otp}
                     maxLength={4} />
                   </View>
                   <View
@@ -70,14 +91,11 @@ export default class OtpVerification extends Component {
                         style={styles.text}>RE-SEND OTP</Text>
                     </View>
                     <View>
-                      <Link
-                          underlayColor= '#87dd18'
-                        to={{
-                            pathname: '/Home',
-                            state: { mobile: this.state.mobile }
-                          }}>
-                          <Text style={styles.text}>COMPLETE</Text>
-                        </Link>
+                    <TouchableHighlight onPress={this.setOtp.bind(this)} style={{underlayColor: 'black'}}>
+                       <Text style={styles.linkText}>
+                         NEXT
+                       </Text>
+                   </TouchableHighlight>
                       </View>
                     </View>
                   </View>
