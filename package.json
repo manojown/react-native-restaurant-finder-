@@ -11,6 +11,11 @@
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.4",
     "react-native-drawer-menu": "^0.1.0",
+    "react-native-easy-grid": "^0.1.8",
+    "react-native-easy-gridview": "^1.0.1",
+    "react-native-grid-view": "^0.4.1",
+    "react-native-gridview": "^0.1.1",
+    "react-native-image-slider": "^1.1.5",
     "react-native-side-menu": "^0.20.1",
     "react-router-native": "^4.1.1"
   },

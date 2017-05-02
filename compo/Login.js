@@ -6,13 +6,14 @@ import {
   StyleSheet,
   Navigator,
   TextInput,
-  Image,
+  Image,ScrollView,
 
 } from 'react-native';
 import {
   Item,
+  Container,
   Input,
-  Button,
+  Button,Content,
   Label,
 } from 'native-base';
 import { NativeRouter, Route, Link,Router,browserHistory  } from 'react-router-native';
@@ -46,84 +47,127 @@ console.log("dfdgfgdgf")
     // }
    }
     render()  {
-    var drawerContent = (<View style={styles.drawerContent}>
-       <View style={styles.leftTop}/>
-       <View style={styles.leftBottom}>
-         <View><Text>Drawer Content</Text></View>
-       </View>
-     </View>);
-     // customize drawer's style (Optional)
-     var customStyles = {
-       drawer: {
-         shadowColor: '#000',
-         shadowOpacity: 0.4,
-         shadowRadius: 10
-       },
-       mask: {}, // style of mask if it is enabled
-       main: {} // style of main board
-     };
+      return (
 
-        return (
-          <View style={{height: '100%'}}>
-            <View style={styles.container}>
-              <View>
+        <View style={styles.container}>
+          <View style={styles.innercontainer}>
+            <Image
+              style={styles.logocontainer}
+              source= {require('./images/banner.jpg')} >
+              <View style={styles.logocontainersmall}>
                 <Image
-                  source = {require('./images/logoz.png')} />
+                  source={require('./images/logo.png')}>
+              </Image>
               </View>
-              <View style={styles.content}>
-                <Text style={{fontSize: 15,color: '#757575',fontWeight:'bold'}}>
-                Sign In with your Phone
-                </Text>
-              </View>
-              <View style={styles.input}>
-                <TextInput
-                  placeholder='Enter Phone Number'
-                  textAlign='center'
-                  placeholderTextColor='#BDBDBD'
-                  underlineColorAndroid='#5cb85c'
-                  keyboardType='numeric'
-                  ref='mobile'
-                  value={this.state.mobile}
-                  maxLength={10} />
-              </View>
-            </View>
-            <View style={{backgroundColor: '#5cb85c',padding: 15, justifyContent:'center', alignItems: 'center',position: 'absolute', bottom: 0, left: 0, right: 0}}>
-                <Link
-                  to={{
-                        pathname: '/OtpVerification',
-                        state: { mobile: this.state.mobile }
-                  }}
-                  onPress={this.getOtp.bind(this)} >
-                  <Text style={{fontSize: 15, fontWeight: '500', color: 'white'}}> GENERATE OTP </Text>
-                </Link>
-            </View>
+
+            </Image>
           </View>
-        );
+          <View style={styles.textcontainer}>
+            <View style={styles.smallblock}>
+              <Text style={styles.text2}>
+                Your mobile number
+              </Text>
+            </View>
+            <View style={styles.smallblock}>
+              <TextInput style={styles.input}
+                fontSize={16}
+                placeholder='Enter mobile number'
+                placeholderTextMargin={10}
+                placeholderTextColor='#ffffff'
+                underlineColorAndroid='#ffffff'
+                keyboardType='numeric'
+                ref='mobile'
+                value={this.state.mobile}
+                maxLength={10} />
+              </View>
+              <View style={styles.smallblock1}>
+                <Link
+                  underlayColor= '#87dd18'
+                  to={{
+                    pathname: '/OtpVerification',
+                    state: { mobile: this.state.mobile }
+                    }}>
+                    <Text style={styles.text}>NEXT</Text>
+                  </Link>
+                </View>
+              </View>
+            </View>
+      );
     }
 }
+
+
+
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
+  },
+  innercontainer:{
+    flexDirection:'row',
+    alignItems:'center',
+    height:'70%',
+  },
+  secondimage:{
+    alignItems:'center',
+      height:150,
+      width:220,
+  },
+  textcontainer:{
+    backgroundColor:'#87dd18',
+    height:'30%',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  imagecontainer: {
+  alignItems:'center',
+    height:100,
+    width:100,
+    },
+  logocontainer: {
+    flexDirection:'column',
+    alignItems:'center',
+    height:400,
+    width:'100%',
+  },
+  logocontainersmall: {
+    margin:10,
+    flexDirection:'column',
+    alignItems:'center',
+
+  },
+  content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
   },
-  content: {
-    paddingTop: 60,
+  smallblock:{
+    margin:15
+  },
+  smallblock1:{
+    margin:15,
+    alignItems:'flex-end',
+  },
+  text:{
+      margin:5,
+    width:50,
+    fontSize: 16,
+    marginBottom:12,
+    textAlign:'center',
+    fontWeight:'500',
+     color: 'white',
+  },
+  text2:{
+    margin:1,
+    color:'#ffffff',
+    fontSize:15,
   },
   input: {
-    paddingTop:10,
-  marginBottom:30,
-    width: '65%',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+
+  padding:5,
+  fontSize:14,
+  color:'white',
+
   },
 });

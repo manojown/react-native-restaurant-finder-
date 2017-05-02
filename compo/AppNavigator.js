@@ -3,7 +3,7 @@ import {
   Text,
   View,
   TouchableHighlight,
-  StyleSheet,
+  StyleSheet,StatusBar,
   Navigator,
   TextInput,
   Image
@@ -11,8 +11,9 @@ import {
 import { NativeRouter, Route, Link,Router } from 'react-router-native';
 import Login from './Login';
 import OtpVerification from './OtpVerification';
-// import OTP from './OTP';
+ import Chicken from './Chicken';
 import Home from './Home';
+import burgerfullinfo from './burger_full_info';
 
 export default class AppNavigator extends Component {
 
@@ -34,9 +35,14 @@ export default class AppNavigator extends Component {
       return (
         <NativeRouter>
           <View>
+            <StatusBar
+                  backgroundColor="#757575"
+                  barStyle="light-content"  />
             <Route  exact path="/" component={Login}/>
             <Route  exact path="/Home" component={Home}/>
             <Route path="/OtpVerification" component={OtpVerification} />
+              <Route path="/Chicken" component={Chicken}/>
+                <Route path="/burgerfullinfo" component={burgerfullinfo}/>
           </View>
         </NativeRouter>
 
