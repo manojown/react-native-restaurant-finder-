@@ -26,6 +26,10 @@ export default class Login extends Component {
 
      };
    };
+
+   navigate(){
+     this.props.history.push('/OtpVerification');
+   }
    getOtp(){
        var thisComponent=this;
 
@@ -69,16 +73,17 @@ ApiService.submit(thisComponent.state.mobile)
           <View style={styles.textcontainer}>
             <View style={styles.smallblock}>
               <Text style={styles.text2}>
-                Your mobile number
+                 Verify your mobile number
               </Text>
             </View>
-            <View style={styles.smallblock}>
+            <View style={styles.smallblock2}>
               <TextInput style={styles.input}
+              //   placeholderStyle={{ fontFamily: "AnotherFont",color:'red',borderColor: 'red' }}
                 fontSize={16}
-                placeholder='Enter mobile number'
-                placeholderTextMargin={10}
+                placeholder='Your mobile number'
                 placeholderTextColor='#ffffff'
                 underlineColorAndroid='#ffffff'
+                //placeholderTextPadding={10}
                 keyboardType='numeric'
                 ref='mobile'
                 value={this.state.mobile}
@@ -86,8 +91,12 @@ ApiService.submit(thisComponent.state.mobile)
                 maxLength={10} />
               </View>
               <View style={styles.smallblock1}>
-              <TouchableHighlight onPress={this.getOtp.bind(this)} style={{underlayColor: 'black'}}>
-                 <Text style={styles.linkText}>
+              <TouchableHighlight
+                underlayColor='#87dd18'
+                // onPress={this.getOtp.bind(this)}
+                onPress={this.navigate.bind(this)}
+                >
+                 <Text style={styles.text}>
                    NEXT
                  </Text>
              </TouchableHighlight>
@@ -110,26 +119,24 @@ const styles = StyleSheet.create({
   },
   secondimage:{
     alignItems:'center',
-      height:150,
+      height:170,
       width:220,
   },
   textcontainer:{
     backgroundColor:'#87dd18',
     height:'30%',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    flex:1,
+
   },
   imagecontainer: {
   alignItems:'center',
-    height:100,
-    width:100,
+    height:120,
+    width:120,
     },
   logocontainer: {
     flexDirection:'column',
     alignItems:'center',
-    height:400,
+    height:'100%',
     width:'100%',
   },
   logocontainersmall: {
@@ -139,35 +146,53 @@ const styles = StyleSheet.create({
 
   },
   content: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   smallblock:{
+    flex:1,
+    marginRight:15,
+    justifyContent:'center',
 
-    margin:15
+
+  },
+  smallblock2:{
+    flex:1,
+
+    marginLeft:15,
+    marginRight:15,
+
+    justifyContent:'center',
   },
   smallblock1:{
-    margin:15,
-    alignItems:'flex-end',
+    flex:1,
+
+    marginLeft:15,
+    marginRight:15,
+  justifyContent:'center',
+    alignItems: 'flex-end',
   },
   text:{
-      margin:5,
+
     width:50,
     fontSize: 16,
-    marginBottom:12,
+
     textAlign:'center',
     fontWeight:'500',
      color: 'white',
   },
   text2:{
-    margin:1,
+
+    marginLeft:20,
     color:'#ffffff',
     fontSize:15,
+    justifyContent:'center',
+
   },
   input: {
 
-  padding:5,
+      padding:5,
+marginBottom:7,
   fontSize:14,
   color:'white',
 
