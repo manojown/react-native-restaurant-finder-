@@ -2,7 +2,7 @@ var Api = require('./Api');
 
 var _submit = function(data) {
 console.log(data);
-  return Api.httpPost('/deliveryboyapp/get',data);
+  return Api.httpPost('/customer/get',data);
 
 };
 var _Auth = function(mobile,otp) {
@@ -11,7 +11,7 @@ var data={
 };
 data.mobile=mobile;
 data.otp=otp;
-  return Api.httpPost('/deliveryboyapp/otp',data);
+  return Api.httpPost('/customer/otp',data);
 
 };
 var _fetchPendingOrders = function(token){

@@ -38,6 +38,7 @@ export default class OtpVerification extends Component {
 
        ApiService.Auth(this.props.location.state.mobile,thisComponent.state.otp)
           .then(function (res) {
+            console.log(res,"token")
               if(res){
                 AsyncStorage.setItem("token", res);
                 thisComponent.props.history.push('/home');
