@@ -13,6 +13,7 @@ import Login from './Login';
 import OtpVerification from './OtpVerification';
  import Chicken from './Chicken';
 import Home from './Home';
+import Cart from './Cart';
 import burgerfullinfo from './burger_full_info';
 
 export default class AppNavigator extends Component {
@@ -41,8 +42,9 @@ export default class AppNavigator extends Component {
             <Route  exact path="/" component={Login}/>
             <Route  exact path="/Home" component={Home}/>
             <Route path="/OtpVerification" component={OtpVerification} />
-              <Route path="/Chicken" component={Chicken}/>
-                <Route path="/burgerfullinfo" component={burgerfullinfo}/>
+            <Route path="/Chicken" component={Chicken}/>
+            <Route path="/burgerfullinfo" component={burgerfullinfo}/>
+            <Route path="/Cart" component={Cart}/>
           </View>
         </NativeRouter>
 

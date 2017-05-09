@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import {
   Item,
-  Input,Content,List,ListItem,
-  Button,Header,Title,Right,
+  Input,List,ListItem,
+  Button,Header,Title,Right,Content,
   Label,Container, Icon, Card, CardItem, Thumbnail, Left, Body,
 } from 'native-base';
 
@@ -25,26 +25,15 @@ export default class burger_full_info extends Component {
 
      };
    };
-   getOtp(){
-       var thisComponent=this;
-console.log("dfdgfgdgf")
-    // if (thisComponent.state.mobile.length == 10){
-      // console.log('hwfduyweh',that);
-    //   ApiService.submit(thisComponent.state.mobile)
-    //   .then(function (res) {
-    //       console.log(res,"Response");
-    //     if(!res){
-    //       alert ('please enter correct Number');
-    //     }
-    //   })
-    //   .catch(function (err) {
-    //     alert('err');
-    //     console.log(err);
-    //   });
-    // } else {
-    //   alert("Please enter correct mobile number");
-    // }
-   }
+
+      cart(){
+        this.props.history.push('/Cart');
+      }
+      navigate(){
+       this.props.history.push('/Chicken');
+     }
+
+
     render()  {
       return (
 
@@ -55,8 +44,7 @@ console.log("dfdgfgdgf")
                   barStyle="light-content"
                 />
             <Left>
-
-              <Button transparent>
+              <Button transparent onPress={this.navigate.bind(this)}>
                 <Image source={require('./images/back.png')} />
               </Button>
 
@@ -65,7 +53,7 @@ console.log("dfdgfgdgf")
               <Title style={{color:'#4c4c4c',marginLeft:-30}}>Big Brown</Title>
             </Body>
             <Right >
-              <Button transparent
+              <Button transparent onPress={this.cart.bind(this)}
                     >
                 <Image source={require('./images/cart.png')} />
               </Button>
@@ -85,15 +73,15 @@ console.log("dfdgfgdgf")
               <Text style={{fontSize:30,marginLeft:20,marginTop:20,marginBottom:10,color:"#4c4c4c"}}>
                 Big Brown Burger
               </Text>
-              <Text style={{fontSize:15,marginLeft:20,borderWidth:1,fontWeight:'600',padding:1,textAlign:'center',width:80,borderColor:'red',color:'red'}}>
+              <Text style={{fontSize:15,marginLeft:20,borderWidth:1,fontWeight:'600',padding:1,textAlign:'center',width:80,borderColor:'red',color:'#F44336'}}>
                 CHICKEN
               </Text>
               <Text style={{fontSize:20,fontWeight:'800',margin:20,color:"#4c4c4c"}}>
                   Start from $3.00
               </Text>
 
-              <Text style={{fontSize:15,marginLeft:20,marginBottom:20,marginRight:20}}>
-              Hamburgers are often served with cheese, lettuce, tomato, bacon, onion, pickles, or chiles; condiments such as mustard, mayonnaise, ketchup, relish,
+              <Text style={{fontSize:15,lineHeight:30,marginLeft:20,marginBottom:20,marginRight:20}}>
+              Hamburgers are often served with cheese, lettuce, tomato, bacon, onion, pickles, or chiles; condiments such as mustard, mayonnaise, ketchup, relish,etc.
               </Text>
 
             </View>

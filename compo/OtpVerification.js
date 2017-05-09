@@ -31,6 +31,9 @@ export default class OtpVerification extends Component {
    state={
 
    }
+   navigate(){
+     this.props.history.push('/Home');
+   }
    setOtp(){
        var thisComponent=this;
 
@@ -67,11 +70,11 @@ export default class OtpVerification extends Component {
           </View>
               <View style={styles.textcontainer}>
                 <View style={styles.smallblock}>
-                  <Text style={{color:'#ffffff',fontSize:15,margin:1}}>
+                  <Text style={{color:'#ffffff',fontSize:15,textAlign:'left'}}>
                       Enter One-time-password sent to your phone
                   </Text>
                 </View>
-                <View style={styles.smallblock}>
+                <View style={styles.smallblock2}>
                   <TextInput style={styles.input}
                     fontSize={16}
                     placeholder='XXXX'
@@ -91,9 +94,12 @@ export default class OtpVerification extends Component {
                         style={styles.text}>RE-SEND OTP</Text>
                     </View>
                     <View>
-                    <TouchableHighlight onPress={this.setOtp.bind(this)} style={{underlayColor: 'black'}}>
-                       <Text style={styles.linkText}>
-                         NEXT
+                    <TouchableHighlight
+                      //onPress={this.setOtp.bind(this)}
+                        onPress={this.navigate.bind(this)}
+                       underlayColor='#87dd18'>
+                       <Text style={styles.text}>
+                         VERIFY
                        </Text>
                    </TouchableHighlight>
                       </View>
@@ -116,10 +122,9 @@ export default class OtpVerification extends Component {
     textcontainer:{
       backgroundColor:'#87dd18',
       height:'30%',
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
+      flex:1,
+      flexDirection:'column',
+
     },
     imagecontainer: {
     alignItems:'center',
@@ -129,7 +134,7 @@ export default class OtpVerification extends Component {
     logocontainer: {
       flexDirection:'column',
       alignItems:'center',
-      height:400,
+      height:'100%',
     width:'100%'
     },
     logocontainersmall: {
@@ -144,22 +149,40 @@ export default class OtpVerification extends Component {
       alignItems: 'center',
     },
     smallblock:{
-      margin:15
+      flex: 1,
+
+      marginLeft:15,
+      marginRight:15,
+
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+    },
+    smallblock2:{
+      flex:1,
+
+      marginLeft:15,
+      marginRight:15,
+      flexDirection: 'column',
+      justifyContent:'center',
     },
     blockspace:{
-      margin:15,
+      flex:1,
+        
+      marginLeft:15,
+      marginRight:15,
+      alignItems: 'center',
       flexDirection:'row',
       justifyContent: 'space-between',
     },
     text:{
-      margin:5,
+
       fontSize: 16,
-      marginBottom:10,
       textAlign:'right',
       fontWeight:'500',
        color: 'white',
     },
     input: {
+    marginBottom:7,
     padding:5,
     fontSize:14,
     color:'white',
