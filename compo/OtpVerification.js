@@ -32,19 +32,17 @@ export default class OtpVerification extends Component {
 
    }
    navigate(){
-     this.props.history.push('/Home');
+     this.props.history.push('/home');
    }
    setOtp(){
        var thisComponent=this;
-
-
-
        ApiService.Auth(this.props.location.state.mobile,thisComponent.state.otp)
           .then(function (res) {
-            console.log(res,"token")
+            console.log(res,"newtoken")
               if(res){
                 AsyncStorage.setItem("token", res);
-                thisComponent.props.history.push('/home');
+
+                thisComponent.props.history.push('/home',{result: res.result});
               }else{
                 alert("Enter correct OTP")
               }
@@ -96,8 +94,8 @@ export default class OtpVerification extends Component {
                     </View>
                     <View>
                     <TouchableHighlight
-                      //onPress={this.setOtp.bind(this)}
-                        onPress={this.navigate.bind(this)}
+                    onPress={this.setOtp.bind(this)}
+                        //onPress={this.navigate.bind(this)}
                        underlayColor='#87dd18'>
                        <Text style={styles.text}>
                          VERIFY
@@ -168,7 +166,7 @@ export default class OtpVerification extends Component {
     },
     blockspace:{
       flex:1,
-        
+
       marginLeft:15,
       marginRight:15,
       alignItems: 'center',

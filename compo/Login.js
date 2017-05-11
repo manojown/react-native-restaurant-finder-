@@ -31,8 +31,9 @@ export default class Login extends Component {
      this.props.history.push('/OtpVerification');
    }
    getOtp(){
+     console.log("hi in  otp");
        var thisComponent=this;
-
+       console.log(thisComponent.state);
 
           if (thisComponent.state.mobile.length == 10){
             // console.log('hwfduyweh',that);
@@ -42,7 +43,7 @@ ApiService.submit(thisComponent.state.mobile)
    if(!res){
      alert ('please enter correct Number');
    }else{
-     alert('hello');
+
      thisComponent.props.history.push('/OtpVerification', { mobile: thisComponent.state.mobile })
    }
  })
@@ -93,8 +94,8 @@ ApiService.submit(thisComponent.state.mobile)
               <View style={styles.smallblock1}>
               <TouchableHighlight
                 underlayColor='#87dd18'
-                // onPress={this.getOtp.bind(this)}
-                onPress={this.navigate.bind(this)}
+                 onPress={this.getOtp.bind(this)}
+              //  onPress={this.navigate.bind(this)}
                 >
                  <Text style={styles.text}>
                    NEXT

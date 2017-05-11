@@ -11,6 +11,7 @@ var data={
 };
 data.mobile=mobile;
 data.otp=otp;
+console.log('httppost customer otp');
   return Api.httpPost('/customer/otp',data);
 
 };
