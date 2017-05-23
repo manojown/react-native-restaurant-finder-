@@ -9,14 +9,16 @@ import {
   Image,ScrollView,
 
 } from 'react-native';
+import { NativeRouter, Route, Link,Router } from 'react-router-native';
 import {
   Item,
   Input,List,ListItem,
   Button,Header,Title,Right,Content,
   Label,Container, Icon, Card, CardItem, Thumbnail, Left, Body,
 } from 'native-base';
+import MapView from 'react-native-maps';
 
-
+import StarRating from 'react-native-star-rating';
 
 export default class burger_full_info extends Component {
   constructor(props) {
@@ -24,17 +26,19 @@ export default class burger_full_info extends Component {
      this.state = {
 
      };
+     console.log('in inf',this.props);
    };
 
       cart(){
         this.props.history.push('/Cart');
       }
       navigate(){
-       this.props.history.push('/Chicken');
+       this.props.history.push('/OtpVerification');
      }
 
 
     render()  {
+      console.log('in info',this.props);
       return (
 
         <View style={styles.container}>
@@ -45,17 +49,17 @@ export default class burger_full_info extends Component {
                 />
             <Left>
               <Button transparent onPress={this.navigate.bind(this)}>
-                <Image source={require('./images/back.png')} />
+                 <Image source={require('./images/back.png')} />
               </Button>
 
             </Left>
               <Body>
-              <Title style={{color:'#4c4c4c',marginLeft:-30}}>Big Brown</Title>
+              <Title style={{color:'#4c4c4c',marginLeft:-30}}>{this.props.location.state.restaurant.location.locality_verbose}</Title>
             </Body>
             <Right >
               <Button transparent onPress={this.cart.bind(this)}
                     >
-                <Image source={require('./images/cart.png')} />
+                <Image source={{uri: this.props.location.state.restaurant.featured_image}}/>
               </Button>
             </Right>
             </Header>
@@ -64,25 +68,46 @@ export default class burger_full_info extends Component {
           <View style={styles.innercontainer}>
             <Image
               style={styles.imagecontainer}
-              source= {require('./images/a.png')} />
+              source={{uri: this.props.location.state.restaurant.featured_image}} />
               </View>
 
             <View>
               <View   style={styles.singleline}
               />
               <Text style={{fontSize:30,marginLeft:20,marginTop:20,marginBottom:10,color:"#4c4c4c"}}>
-                Big Brown Burger
+                {this.props.location.state.restaurant.name}
               </Text>
               <Text style={{fontSize:15,marginLeft:20,borderWidth:1,fontWeight:'600',padding:1,textAlign:'center',width:80,borderColor:'red',color:'#F44336'}}>
-                CHICKEN
+            {this.props.location.state.restaurant.cuisines}
               </Text>
               <Text style={{fontSize:20,fontWeight:'800',margin:20,color:"#4c4c4c"}}>
-                  Start from $3.00
+                  Rs  - {this.props.location.state.restaurant.average_cost_for_two} per {this.props.location.state.restaurant.price_range}
               </Text>
-
+              <Text style={{margin:20}}>
+                {this.props.location.state.restaurant.location.address}
+              </Text>
+              <View style={{fontSize:15,lineHeight:30,marginLeft:20,marginBottom:20,marginRight:20}}>
               <Text style={{fontSize:15,lineHeight:30,marginLeft:20,marginBottom:20,marginRight:20}}>
-              Hamburgers are often served with cheese, lettuce, tomato, bacon, onion, pickles, or chiles; condiments such as mustard, mayonnaise, ketchup, relish,etc.
+              {this.props.location.state.restaurant.user_rating.votes} Reviewed -   {this.props.location.state.restaurant.user_rating.rating_text}
               </Text>
+              <StarRating
+                  disabled={true}
+                  maxStars={5}
+                  rating={this.props.location.state.restaurant.user_rating.aggregate_rating}
+
+                />
+                <View style={styles.container1}>
+                  <MapView style={styles.map1}
+                        initialRegion={{
+                    latitude: 23.03082799,
+                    longitude: 72.65497596,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                  }}
+                    />
+                </View>
+
+              </View>
 
             </View>
 
@@ -92,11 +117,17 @@ export default class burger_full_info extends Component {
 
 
               <View style={styles.smallblock1}>
+                <Link to={{  pathname: '/zomato',
+                  state: { weburl: this.props.location.state.restaurant.deeplink}
+                }} >
+                    <Text style={styles.text}>Proceed To Place order</Text>
+                </Link>
 
-                    <Text style={styles.text}>CUSTOMIZE & ADD TO CART</Text>
 
                 </View>
               </View>
+
+
 
             </View>
       );
@@ -106,6 +137,23 @@ export default class burger_full_info extends Component {
 
 
 const styles = StyleSheet.create({
+  container1: {
+   position: 'absolute',
+   top: 0,
+   left: 0,
+   right: 0,
+   bottom: 0,
+   justifyContent: 'flex-end',
+   alignItems: 'center',
+
+ },
+ map1: {
+   position: 'absolute',
+   top: 0,
+   left: 0,
+   right: 0,
+   bottom: 0,
+ },
   container: {
     height: '100%',
     backgroundColor:'white',

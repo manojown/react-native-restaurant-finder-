@@ -1,190 +1,234 @@
-import React, {Component} from 'react';
+'use strict';
+
+import React, { Component } from 'react';
 import {
-  Text,
-  View,
-  TouchableHighlight,
+  AppRegistry,
+  Image,
+  ListView,
   StyleSheet,
-  Navigator,
-  TextInput,
-  Image,Alert,
-  StatusBar,
-  AsyncStorage
+  Text,
+  View,TouchableHighlight,TextInput
 } from 'react-native';
-import {
-  Item,
-  Input,
-  Button,
-  Label,
-} from 'native-base';
-import { NativeRouter, Route, Link,Router,browserHistory  } from 'react-router-native';
-// var ApiService =require( './ApiService');
-var ApiService =require( './ApiService');
+import {  Container, Content, ListItem, CheckBox, Header,Left,Button,Icon , Item ,Input , Body ,Title ,Right} from 'native-base';
+import { NativeRouter, Route, Link,Router } from 'react-router-native';
+import GridView from 'react-native-grid-view'
+import StarRating from 'react-native-star-rating';
+import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
+var API_KEY = 'f86bb6c46b5bcddd4d290139aeaccb70';
+var API_URL = 'https://developers.zomato.com/api/v2.1/geocode?lat=23.0308279&lon=72.65497596';
+var PAGE_SIZE = 25;
+var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
+var REQUEST_URL = API_URL + PARAMS;
+var MOVIES_PER_ROW = 2;
 
-
-
-export default class OtpVerification extends Component {
-
+class Movie extends Component {
   constructor(props) {
-     super(props);
-   };
-
-   state={
-
-   }
-   navigate(){
-     this.props.history.push('/home');
-   }
-   setOtp(){
-       var thisComponent=this;
-       ApiService.Auth(this.props.location.state.mobile,thisComponent.state.otp)
-          .then(function (res) {
-            console.log(res,"newtoken")
-              if(res){
-                AsyncStorage.setItem("token", res);
-
-                thisComponent.props.history.push('/home',{result: res.result});
-              }else{
-                alert("Enter correct OTP")
-              }
-          })
-          .catch(function (err) {
-            alert('err mobile');
-            console.log(err);
-          });
-}
-
-    render() {
-        return (
-          <View style={styles.container}>
-            <View style={styles.innercontainer}>
-              <Image
-                resizeMode = 'cover'
-                style={styles.logocontainer}
-                source= {require('./images/banner.jpg')} >
-                <View   style={styles.logocontainersmall}>
-                  <Image source={require('./images/logo.png')}>
-                </Image>
-              </View>
-            </Image>
-          </View>
-              <View style={styles.textcontainer}>
-                <View style={styles.smallblock}>
-                  <Text style={{color:'#ffffff',fontSize:15,textAlign:'left'}}>
-                      Enter One-time-password sent to your phone
-                  </Text>
-                </View>
-                <View style={styles.smallblock2}>
-                  <TextInput style={styles.input}
-                    fontSize={16}
-                    placeholder='XXXX'
-                     onChangeText={(otp) => this.setState({otp})}
-                    placeholderTextColor='#ffffff'
-                    underlineColorAndroid='#ffffff'
-                    keyboardType='numeric'
-                    ref='otp'
-                    value={this.state.otp}
-                    maxLength={4} />
-                  </View>
-                  <View
-                      style={styles.blockspace}>
-                    <View>
-                      <Text
-                      //  onPress={this.onButtonPress.bind(this)}
-                        style={styles.text}>RE-SEND OTP</Text>
-                    </View>
-                    <View>
-                    <TouchableHighlight
-                    onPress={this.setOtp.bind(this)}
-                        //onPress={this.navigate.bind(this)}
-                       underlayColor='#87dd18'>
-                       <Text style={styles.text}>
-                         VERIFY
-                       </Text>
-                   </TouchableHighlight>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-          );
+    super(props);
+    this.state = {
+      restaurant: null,
+      area:null,
     }
   }
+  navigate(restorent,area){
+    this.props.history.push('/burgerfullinfo');
+  }
 
-  const styles = StyleSheet.create({
-    container: {
-      height: '100%',
-    },
-    innercontainer:{
-      flexDirection:'row',
-      alignItems:'center',
-      height:'70%',
-    },
-    textcontainer:{
-      backgroundColor:'#87dd18',
-      height:'30%',
-      flex:1,
-      flexDirection:'column',
+  render() {
+      return (
 
-    },
-    imagecontainer: {
-    alignItems:'center',
-      height:100,
-      width:100,
+        <View style={{alignItems:'stretch',justifyContent:'center',padding:5,backgroundColor:'white'}}>
+
+        <Link to={{
+          pathname: '/burgerfullinfo',
+
+          state: { restaurant: this.props.movie.restaurant,area:this.state.area}
+        }}>
+             <View
+               style={{alignItems:'center',borderWidth: 1, borderColor: '#EEE', justifyContent:'center'}}>
+                   <Image style={{height:150,width:150}} source={{uri: this.props.movie.restaurant.featured_image}}/>
+                   <Text style={{fontSize:15, margin: 10 , fontFamily: 'Iowan Old Style'}}>{this.props.movie.restaurant.name}</Text>
+                   <Text style={{fontSize:15, margin: 10, fontWeight:'bold'}}>
+                        Rs  - {this.props.movie.restaurant.average_cost_for_two} per {this.props.movie.restaurant.price_range}
+                   </Text>
+
+
+
+                   <View style={{alignItems:'center'}}>
+                   <Text>
+                    {this.props.movie.restaurant.user_rating.votes} Reviewed -   {this.props.movie.restaurant.user_rating.rating_text}
+                   </Text>
+
+                   <StarRating
+                       disabled={true}
+                       maxStars={5}
+                       rating={this.props.movie.restaurant.user_rating.aggregate_rating}
+
+                     />
+                     </View>
+               </View>
+            </Link>
+          </View>
+
+      );
+  }
+}
+
+export default class AwesomeProject extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataSource: null,
+      loaded: false,
+      area : null,
+      latitude:null,
+      longitude:null,
+      error:null
+    }
+
+
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
+        });
+          this.fetchData();
       },
-    logocontainer: {
-      flexDirection:'column',
-      alignItems:'center',
-      height:'100%',
-    width:'100%'
-    },
-    logocontainersmall: {
-      margin:10,
-      flexDirection:'column',
-      alignItems:'center',
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
 
-    },
-    content: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    smallblock:{
-      flex: 1,
+  }
 
-      marginLeft:15,
-      marginRight:15,
+  fetchData() {
+    fetch(API_URL,{
+      method: 'GET',
+      headers: {
+        'user-key':'f86bb6c46b5bcddd4d290139aeaccb70'
+      }
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('nearby_restaurants',responseData)
+        this.setState({
+          dataSource: responseData.nearby_restaurants,
+          loaded: true,
+          area:responseData.location
+        });
+      })
+      .done();
+  }
 
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-    },
-    smallblock2:{
-      flex:1,
+  render() {
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
 
-      marginLeft:15,
-      marginRight:15,
-      flexDirection: 'column',
-      justifyContent:'center',
-    },
-    blockspace:{
-      flex:1,
+    return (
 
-      marginLeft:15,
-      marginRight:15,
-      alignItems: 'center',
-      flexDirection:'row',
-      justifyContent: 'space-between',
-    },
-    text:{
+      <View>
+                <Header>
+                    <Left>
+                        <Button transparent>
+                            <Icon name='arrow-back' />
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title>{this.state.area.city_name} - {this.state.area.title}</Title>
+                    </Body>
+                    <Right>
+                        <Button transparent>
+                            <Icon name='menu' />
+                        </Button>
+                    </Right>
+                </Header>
+        <View style={{padding:5,height:60,  backgroundColor: '#58dafe',}}>
+          <TextInput
+            style={styles.input}
+            placeholder="Search..."
+            onChangeText={(text) => console.log('searching for ', text)}
+          />
+        </View>
+      <GridView
+        items={this.state.dataSource}
+        itemsPerRow={MOVIES_PER_ROW}
+        renderItem={this.renderItem}
+        style={styles.listView}
+      />
 
-      fontSize: 16,
-      textAlign:'right',
-      fontWeight:'500',
-       color: 'white',
-    },
+    </View>
+    );
+  }
+
+  renderLoadingView() {
+    return (
+      <View style={{alignItems:'center' , marginTop:200 , height:'100%'}}>
+        <Bars size={20} color="green" />
+      </View>
+    );
+  }
+
+  renderItem(item) {
+      return <Movie movie={item} />
+  }
+}
+
+var styles = StyleSheet.create({
+
     input: {
-    marginBottom:7,
-    padding:5,
-    fontSize:14,
-    color:'white',
 
+      flex: 1,
+      paddingHorizontal: 8,
+      fontSize: 15,
+      backgroundColor: '#FFFFFF',
+      borderRadius: 2,
     },
-  });
+  movie: {
+    height: 150,
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  title: {
+    fontSize: 10,
+    marginBottom: 8,
+    width: 90,
+    textAlign: 'center',
+  },
+  year: {
+    textAlign: 'center',
+  },
+  thumbnail: {
+    width: 53,
+    height: 81,
+  },
+  listView: {
+    paddingTop: 20,
+    backgroundColor: '#58dafe',
+  },
+  maincontain:{
+       height:'100%',
+       flexDirection: 'column',
+       backgroundColor:'#45ff45',
+    },
+    bodystyle:{
+      marginLeft:-30,
+    },
+    listContainerx: {
+      flexDirection: 'column',
+      alignItems:'stretch',
+      backgroundColor:'#ffffff',
+    },
+    listContainer:{
+      marginBottom:70,
+      backgroundColor:'#000',
+    },
+    pickerstyle:{
+      width:100,
+    }
+});

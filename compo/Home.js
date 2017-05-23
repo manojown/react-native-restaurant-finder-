@@ -24,13 +24,18 @@ export default class Home extends Component {
   constructor(props) {
      super(props);
      this.state = {
-
+       result:this.props.location.state.result
      };
+     try {
+   AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
+  } catch (error) {
+  // Error saving data
+  }
    };
 
     render() {
-      if(this.props.location.state.result.featured){
-        let featured = this.props.location.state.result.featured;
+      if(this.state.result.featured){
+        let featured = this.state.result.featured;
         var featuredItems = featured.map(function(item) {
         return (
           <View style={styles.cardView}>
@@ -48,10 +53,14 @@ export default class Home extends Component {
         );
        });
       }
-      if(this.props.location.state.result.subCategory){
-        let category = this.props.location.state.result.subCategory;
+      if(this.state.result.subCategory){
+        let category = this.state.result.subCategory;
         console.log('category',category)
         var CategoryItems = Object.entries(category).map(([key, value]) => {
+          var tempobj = {};
+          tempobj.key = key;
+          tempobj.value = value;
+
 
           return (
             <View>
@@ -60,17 +69,21 @@ export default class Home extends Component {
                   underlayColor= 'white'
                 to={{
                   pathname: '/Chicken',
-                  state: { individual: {key:key,value:value} }
+                  state: { menu : tempobj }
                 }}>
+
+
                 <View style={styles.blockspace}>
                   <View>
-                    <Text style={styles.text2}>{key}</Text>
+                    <Text style={styles.text2} key={key.toString()}>{key}</Text>
                   </View>
                   <View>
                     <Image source={require('./images/aerrow.png')}/>
                   </View>
                 </View>
+
               </Link>
+
               <View  style={styles.singleline}></View>
             </View>
           )
@@ -186,21 +199,6 @@ export default class Home extends Component {
                   </View>
                       <View  style={styles.lastcontainer}>
                         {CategoryItems}
-                      {/*
-                        <Link
-                            underlayColor= 'white'
-                          to={{ pathname: '/Chicken',
-                                state: { mobile: this.state.mobile }
-                          }}>
-                          <View style={styles.blockspace2}>
-                            <View>
-                              <Text style={styles.text2}>Tuna & Salmon</Text>
-                            </View>
-                            <View>
-                              <Image source={require('./images/aerrow.png')}/>
-                            </View>
-                          </View>
-                        </Link> */}
                       </View>
                     </View>
                 {/* </DrawerLayoutAndroid> */}
