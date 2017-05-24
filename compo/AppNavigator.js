@@ -9,12 +9,12 @@ import {
   Image
 } from 'react-native';
 import { NativeRouter, Route, Link,Router } from 'react-router-native';
-import Login from './Login';
-import OtpVerification from './OtpVerification';
- import zomato from './Chicken';
-import Home from './Home';
+import homescreen from './homescreen';
+import restolist from './restolist';
+ import zomato from './zomato';
+
 import Cart from './Cart';
-import burgerfullinfo from './burger_full_info';
+import restoInfo from './restoInfo';
 
 export default class AppNavigator extends Component {
 
@@ -39,11 +39,11 @@ export default class AppNavigator extends Component {
             <StatusBar
                   backgroundColor="#757575"
                   barStyle="light-content"  />
-            <Route  exact path="/" component={Login}/>
-            <Route  exact path="/Home" component={Home}/>
-            <Route path="/OtpVerification" component={OtpVerification} />
+            <Route  exact path="/" component={homescreen}/>
+
+            <Route path="/restolist" component={restolist} />
             <Route path="/zomato" component={zomato}/>
-            <Route path="/burgerfullinfo" component={burgerfullinfo}/>
+            <Route path="/restoInfo" component={restoInfo}/>
             <Route path="/Cart" component={Cart}/>
           </View>
         </NativeRouter>

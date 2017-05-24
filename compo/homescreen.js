@@ -17,7 +17,7 @@ import {
   Label,
 } from 'native-base';
 import { NativeRouter, Route, Link,Router,browserHistory  } from 'react-router-native';
-var ApiService =require( './ApiService');
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ export default class Login extends Component {
    };
 
    navigate(){
-     this.props.history.push('/OtpVerification');
+     this.props.history.push('/restolist');
    }
 
     render()  {

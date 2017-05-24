@@ -19,7 +19,7 @@ import {
 } from 'native-base';
 import { NativeRouter, Route, Link,Router } from 'react-router-native';
 import GridView from 'react-native-grid-view';
-import Login from './Login';
+
 
 
 export default class zomato extends Component {
@@ -29,18 +29,18 @@ export default class zomato extends Component {
      this.state = {
 
      };
-     console.log('web url',this.props);
+     console.log('web url',this.props.location.state.weburl);
    };
    render() {
     const uri = this.props.location.state.weburl;
     return (
       <WebView
         ref={(ref) => { this.webview = ref; }}
-        source={{ uri }}
+        source={this.props.location.state.weburl}
         onNavigationStateChange={(event) => {
-          if (event.url !== uri) {
+          if (event.url !== this.props.location.state.weburl) {
             this.webview.stopLoading();
-            Linking.openURL(event.url);
+            Linking.openURL(this.props.location.state.weburl);
           }
         }}
       />

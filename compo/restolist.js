@@ -14,14 +14,13 @@ import { NativeRouter, Route, Link,Router } from 'react-router-native';
 import GridView from 'react-native-grid-view'
 import StarRating from 'react-native-star-rating';
 import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
-var API_KEY = 'f86bb6c46b5bcddd4d290139aeaccb70';
-var API_URL = 'https://developers.zomato.com/api/v2.1/geocode?lat=23.0308279&lon=72.65497596';
-var PAGE_SIZE = 25;
-var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
-var REQUEST_URL = API_URL + PARAMS;
-var MOVIES_PER_ROW = 2;
 
-class Movie extends Component {
+var API_URL = 'https://developers.zomato.com/api/v2.1/geocode';
+var PAGE_SIZE = 25;
+
+var grid_per_row = 2;
+
+class resto extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +29,7 @@ class Movie extends Component {
     }
   }
   navigate(restorent,area){
-    this.props.history.push('/burgerfullinfo');
+    this.props.history.push('/restoInfo');
   }
 
   render() {
@@ -39,29 +38,29 @@ class Movie extends Component {
         <View style={{alignItems:'stretch',justifyContent:'center',padding:5,backgroundColor:'white'}}>
 
         <Link to={{
-          pathname: '/burgerfullinfo',
+          pathname: '/restoInfo',
 
-          state: { restaurant: this.props.movie.restaurant,area:this.state.area}
+          state: { restaurant: this.props.gridlist_resto.restaurant,area:this.state.area}
         }}>
              <View
                style={{alignItems:'center',borderWidth: 1, borderColor: '#EEE', justifyContent:'center'}}>
-                   <Image style={{height:150,width:150}} source={{uri: this.props.movie.restaurant.featured_image}}/>
-                   <Text style={{fontSize:15, margin: 10 , fontFamily: 'Iowan Old Style'}}>{this.props.movie.restaurant.name}</Text>
+                   <Image style={{height:150,width:150}} source={{uri: this.props.gridlist_resto.restaurant.featured_image}}/>
+                   <Text style={{fontSize:15, margin: 10 , fontFamily: 'Iowan Old Style'}}>{this.props.gridlist_resto.restaurant.name}</Text>
                    <Text style={{fontSize:15, margin: 10, fontWeight:'bold'}}>
-                        Rs  - {this.props.movie.restaurant.average_cost_for_two} per {this.props.movie.restaurant.price_range}
+                        Rs  - {this.props.gridlist_resto.restaurant.average_cost_for_two} per {this.props.gridlist_resto.restaurant.price_range}
                    </Text>
 
 
 
                    <View style={{alignItems:'center'}}>
                    <Text>
-                    {this.props.movie.restaurant.user_rating.votes} Reviewed -   {this.props.movie.restaurant.user_rating.rating_text}
+                    {this.props.gridlist_resto.restaurant.user_rating.votes} Reviewed -   {this.props.gridlist_resto.restaurant.user_rating.rating_text}
                    </Text>
 
                    <StarRating
                        disabled={true}
                        maxStars={5}
-                       rating={this.props.movie.restaurant.user_rating.aggregate_rating}
+                       rating={this.props.gridlist_resto.restaurant.user_rating.aggregate_rating}
 
                      />
                      </View>
@@ -73,7 +72,7 @@ class Movie extends Component {
   }
 }
 
-export default class AwesomeProject extends Component {
+export default class restolist extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -106,10 +105,10 @@ export default class AwesomeProject extends Component {
   }
 
   fetchData() {
-    fetch(API_URL,{
+    fetch(API_URL+'?lat='+this.state.latitude+'&lon='+this.state.latitude,{
       method: 'GET',
       headers: {
-        'user-key':'f86bb6c46b5bcddd4d290139aeaccb70'
+        'user-key':'your user key'
       }
     })
       .then((response) => response.json())
@@ -156,7 +155,7 @@ export default class AwesomeProject extends Component {
         </View>
       <GridView
         items={this.state.dataSource}
-        itemsPerRow={MOVIES_PER_ROW}
+        itemsPerRow={grid_per_row}
         renderItem={this.renderItem}
         style={styles.listView}
       />
@@ -174,7 +173,7 @@ export default class AwesomeProject extends Component {
   }
 
   renderItem(item) {
-      return <Movie movie={item} />
+      return <resto gridlist_resto={item} />
   }
 }
 
@@ -188,7 +187,7 @@ var styles = StyleSheet.create({
       backgroundColor: '#FFFFFF',
       borderRadius: 2,
     },
-  movie: {
+  gridlist_resto: {
     height: 150,
     flex: 1,
     alignItems: 'center',

@@ -33,7 +33,7 @@ export default class burger_full_info extends Component {
         this.props.history.push('/Cart');
       }
       navigate(){
-       this.props.history.push('/OtpVerification');
+       this.props.history.push('/restolist');
      }
 
 
@@ -49,7 +49,7 @@ export default class burger_full_info extends Component {
                 />
             <Left>
               <Button transparent onPress={this.navigate.bind(this)}>
-                 <Image source={require('./images/back.png')} />
+                <Image source={require('./images/back.png')} />
               </Button>
 
             </Left>
@@ -118,7 +118,7 @@ export default class burger_full_info extends Component {
 
               <View style={styles.smallblock1}>
                 <Link to={{  pathname: '/zomato',
-                  state: { weburl: this.props.location.state.restaurant.deeplink}
+                  state: { weburl: this.props.location.state.restaurant.url}
                 }} >
                     <Text style={styles.text}>Proceed To Place order</Text>
                 </Link>
@@ -145,7 +145,6 @@ const styles = StyleSheet.create({
    bottom: 0,
    justifyContent: 'flex-end',
    alignItems: 'center',
-
  },
  map1: {
    position: 'absolute',
